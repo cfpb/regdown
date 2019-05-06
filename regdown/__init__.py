@@ -66,7 +66,11 @@ import re
 from markdown import markdown, util
 from markdown.blockprocessors import BlockProcessor, ParagraphProcessor
 from markdown.extensions import Extension
-from markdown.inlinepatterns import DoubleTagPattern, Pattern, SimpleTagPattern
+from markdown.inlinepatterns import (
+    DoubleTagInlineProcessor,
+    Pattern,
+    SimpleTagInlineProcessor,
+)
 
 
 # If we're on Python 3.6+ we have SHA3 built-in, otherwise use the back-ported
@@ -78,13 +82,13 @@ except ImportError:  # pragma: no cover
 
 
 # **strong**
-STRONG_RE = r'(\*{2})(.+?)\2'
+STRONG_RE = r'(\*{2})(.+?)\1'
 
 # ***strongem*** or ***em*strong**
-EM_STRONG_RE = r'(\*)\2{2}(.+?)\2(.*?)\2{2}'
+EM_STRONG_RE = r'(\*)\1{2}(.+?)\1(.*?)\1{2}'
 
 # ***strong**em*
-STRONG_EM_RE = r'(\*)\2{2}(.+?)\2{2}(.*?)\2'
+STRONG_EM_RE = r'(\*)\1{2}(.+?)\1{2}(.*?)\1'
 
 # Form field: __
 # __Form Field
@@ -124,34 +128,39 @@ class RegulationsExtension(Extension):
         ],
     }
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         md.registerExtension(self)
 
-        # Add inline pseudo form pattern. Replace all inlinePatterns that
-        # include an underscore with patterns that do not include underscores.
-        md.inlinePatterns['emdash'] = EmDashPattern(
-            EMDASH_RE
+        # Replace all inlinePatterns that include an underscore with patterns
+        # that do not include underscores.
+        md.inlinePatterns.deregister('strong_em')
+        md.inlinePatterns.deregister('em_strong')
+        md.inlinePatterns.deregister('strong')
+        md.inlinePatterns.deregister('strong2')
+        md.inlinePatterns.deregister('emphasis2')
+
+        md.inlinePatterns.register(
+            DoubleTagInlineProcessor(EM_STRONG_RE, 'strong,em'),
+            'em_strong',
+            60
         )
-        md.inlinePatterns['em_strong'] = DoubleTagPattern(
-            EM_STRONG_RE, 'strong,em'
+        md.inlinePatterns.register(
+            DoubleTagInlineProcessor(STRONG_EM_RE, 'em,strong'),
+            'strong_em',
+            50
         )
-        md.inlinePatterns['strong_em'] = DoubleTagPattern(
-            STRONG_EM_RE, 'em,strong'
-        )
-        md.inlinePatterns['strong'] = SimpleTagPattern(
-            STRONG_RE, 'strong'
-        )
-        md.inlinePatterns['pseudo-form'] = PseudoFormPattern(
-            PSEUDO_FORM_RE
-        )
-        md.inlinePatterns['section-symbol'] = SectionSymbolPattern(
-            SECTION_SYMBOL_RE
-        )
-        del md.inlinePatterns['emphasis2']
+        md.inlinePatterns.register(
+            SimpleTagInlineProcessor(STRONG_RE, 'strong'), 'strong', 40)
+
+        # Add inline emdash and pseudo form patterns.
+        md.inlinePatterns.register(EmDashPattern(EMDASH_RE), 'emdash', 200)
+        md.inlinePatterns.register(
+            PseudoFormPattern(PSEUDO_FORM_RE), 'pseudo-form', 210)
+        md.inlinePatterns.register(
+            SectionSymbolPattern(SECTION_SYMBOL_RE), 'section-symbol', 220)
 
         # Add block reference processor for `see(label)` syntax
-        md.parser.blockprocessors.add(
-            'blockreference',
+        md.parser.blockprocessors.register(
             BlockReferenceProcessor(
                 md.parser,
                 url_resolver=self.getConfig('url_resolver'),
@@ -159,16 +168,18 @@ class RegulationsExtension(Extension):
                 render_block_reference=self.getConfig(
                     'render_block_reference'),
             ),
-            '<paragraph'
+            'blockreference',
+            200
         )
 
         # Replace the default paragraph processor with one that handles
         # `{label}` syntax and gives default hash-based ids to paragraphs
-        md.parser.blockprocessors['paragraph'] = \
-            LabeledParagraphProcessor(md.parser)
+        md.parser.blockprocessors.deregister('paragraph')
+        md.parser.blockprocessors.register(
+            LabeledParagraphProcessor(md.parser), 'paragraph', 10)
 
         # Delete the ordered list processor
-        del md.parser.blockprocessors['olist']
+        md.parser.blockprocessors.deregister('olist')
 
 
 class EmDashPattern(Pattern):

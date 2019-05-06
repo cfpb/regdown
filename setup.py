@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 
 install_requires = [
-    'Markdown>=2.6,<4.0',
+    'Markdown>=3.0,<4.0',
     'sha3==0.2.1',
 ]
 

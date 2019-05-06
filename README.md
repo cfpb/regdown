@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/cfpb/regdown.svg?branch=master)](https://travis-ci.org/cfpb/regdown)
 [![Coverage Status](https://coveralls.io/repos/github/cfpb/regdown/badge.svg?branch=master)](https://coveralls.io/github/cfpb/regdown?branch=master)
 
-Regdown is a Python-Markdown extension for interactive regulation text.
+Regdown is a [Python-Markdown](https://python-markdown.github.io) extension for interactive regulation text.
 
 - [Dependencies](#dependencies)
 - [Installation](#installation)
@@ -16,7 +16,7 @@ Regdown is a Python-Markdown extension for interactive regulation text.
 ## Dependencies
 
 - Python 2.7+, 3.6+
-- Markdown 2.6+
+- [Python-Markdown](https://python-markdown.github.io) 3.0+
 
 ## Installation
 
