@@ -46,6 +46,7 @@ Thumbs.db
 *.pyc
 *.egg-info/
 __pycache__/
+.eggs
 *.py[cod]
 .env
 
