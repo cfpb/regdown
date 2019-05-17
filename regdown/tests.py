@@ -300,7 +300,7 @@ class RegulationsExtensionTestCase(unittest.TestCase):
         self.assertIn('§&#160;1023.4(a)', regdown('§&#160;1023.4(a)'))
 
     def test_emdash(self):
-        self.assertIn('Some &emdash; text', regdown('Some --- text'))
+        self.assertIn('Some &mdash; text', regdown('Some --- text'))
 
 
 class RegdownUtilsTestCase(unittest.TestCase):
