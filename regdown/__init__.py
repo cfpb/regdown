@@ -123,9 +123,9 @@ class RegulationsExtension(Extension):
 
 
 class EmDashPattern(Pattern):
-    """ Replace '---' with an &emdash; """
+    """ Replace '---' with an &mdash; """
     def handleMatch(self, m):
-        return '{}emdash;'.format(util.AMP_SUBSTITUTE)
+        return '{}mdash;'.format(util.AMP_SUBSTITUTE)
 
 
 class PseudoFormPattern(Pattern):
