@@ -15,8 +15,8 @@ Regdown is a [Python-Markdown](https://python-markdown.github.io) extension for 
 
 ## Dependencies
 
-- Python 2.7+, 3.6+
-- [Python-Markdown](https://python-markdown.github.io) 3.0+
+- Python 3.6, 3.8
+- [Python-Markdown](https://python-markdown.github.io) 3.2
 
 ## Installation
 

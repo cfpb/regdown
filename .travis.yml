@@ -6,18 +6,10 @@ matrix:
   include:
     - env: TOXENV=lint
       python: 3.6
-    - env: TOXENV=py27-md30
-      python: 2.7
-    - env: TOXENV=py27-md31
-      python: 2.7
-    - env: TOXENV=py36-md30
+    - env: TOXENV=py36-md32
       python: 3.6
-    - env: TOXENV=py36-md31
-      python: 3.6
-    - env: TOXENV=py37-md30
-      python: 3.7
-    - env: TOXENV=py37-md31
-      python: 3.7
+    - env: TOXENV=py38-md32
+      python: 3.8
 
 install:
   pip install tox coveralls
