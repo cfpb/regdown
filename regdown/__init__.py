@@ -67,7 +67,7 @@ class RegulationsExtension(Extension):
 
         # Replace all inlinePatterns that include an underscore with patterns
         # that do not include underscores.
-        md.inlinePatterns.deregister('em_strong')
+        md.inlinePatterns.deregister('em_strong2')
 
         md.inlinePatterns.register(
             DoubleTagInlineProcessor(EM_STRONG_RE, 'strong,em'),
