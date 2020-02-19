@@ -21,14 +21,8 @@ except ImportError:  # pragma: no cover
     from sha3 import sha3_224
 
 
-# **strong**
-STRONG_RE = r'(\*{2})(.+?)\1'
-
 # ***strongem*** or ***em*strong**
 EM_STRONG_RE = r'(\*)\1{2}(.+?)\1(.*?)\1{2}'
-
-# ***strong**em*
-STRONG_EM_RE = r'(\*)\1{2}(.+?)\1{2}(.*?)\1'
 
 # Form field: __
 # __Form Field
@@ -74,7 +68,6 @@ class RegulationsExtension(Extension):
         # Replace all inlinePatterns that include an underscore with patterns
         # that do not include underscores.
         md.inlinePatterns.deregister('em_strong')
-        md.inlinePatterns.deregister('strong')
         md.inlinePatterns.deregister('strong2')
         md.inlinePatterns.deregister('emphasis2')
 
@@ -83,8 +76,6 @@ class RegulationsExtension(Extension):
             'em_strong',
             60
         )
-        md.inlinePatterns.register(
-            SimpleTagInlineProcessor(STRONG_RE, 'strong'), 'strong', 40)
 
         # Add inline emdash and pseudo form patterns.
         md.inlinePatterns.register(EmDashPattern(EMDASH_RE), 'emdash', 200)
