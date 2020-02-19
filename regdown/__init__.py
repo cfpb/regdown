@@ -6,11 +6,7 @@ import re
 from markdown import markdown, util
 from markdown.blockprocessors import BlockProcessor, ParagraphProcessor
 from markdown.extensions import Extension
-from markdown.inlinepatterns import (
-    DoubleTagInlineProcessor,
-    Pattern,
-    SimpleTagInlineProcessor,
-)
+from markdown.inlinepatterns import DoubleTagInlineProcessor, Pattern
 
 
 # If we're on Python 3.6+ we have SHA3 built-in, otherwise use the back-ported
