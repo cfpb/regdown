@@ -6,11 +6,7 @@ import re
 from markdown import markdown, util
 from markdown.blockprocessors import BlockProcessor, ParagraphProcessor
 from markdown.extensions import Extension
-from markdown.inlinepatterns import (
-    DoubleTagInlineProcessor,
-    Pattern,
-    SimpleTagInlineProcessor,
-)
+from markdown.inlinepatterns import DoubleTagInlineProcessor, Pattern
 
 
 # If we're on Python 3.6+ we have SHA3 built-in, otherwise use the back-ported
@@ -21,14 +17,8 @@ except ImportError:  # pragma: no cover
     from sha3 import sha3_224
 
 
-# **strong**
-STRONG_RE = r'(\*{2})(.+?)\1'
-
 # ***strongem*** or ***em*strong**
 EM_STRONG_RE = r'(\*)\1{2}(.+?)\1(.*?)\1{2}'
-
-# ***strong**em*
-STRONG_EM_RE = r'(\*)\1{2}(.+?)\1{2}(.*?)\1'
 
 # Form field: __
 # __Form Field
@@ -73,24 +63,13 @@ class RegulationsExtension(Extension):
 
         # Replace all inlinePatterns that include an underscore with patterns
         # that do not include underscores.
-        md.inlinePatterns.deregister('strong_em')
-        md.inlinePatterns.deregister('em_strong')
-        md.inlinePatterns.deregister('strong')
-        md.inlinePatterns.deregister('strong2')
-        md.inlinePatterns.deregister('emphasis2')
+        md.inlinePatterns.deregister('em_strong2')
 
         md.inlinePatterns.register(
             DoubleTagInlineProcessor(EM_STRONG_RE, 'strong,em'),
-            'em_strong',
+            'em_strong2',
             60
         )
-        md.inlinePatterns.register(
-            DoubleTagInlineProcessor(STRONG_EM_RE, 'em,strong'),
-            'strong_em',
-            50
-        )
-        md.inlinePatterns.register(
-            SimpleTagInlineProcessor(STRONG_RE, 'strong'), 'strong', 40)
 
         # Add inline emdash and pseudo form patterns.
         md.inlinePatterns.register(EmDashPattern(EMDASH_RE), 'emdash', 200)
