@@ -67,7 +67,7 @@ class RegulationsExtension(Extension):
 
         md.inlinePatterns.register(
             DoubleTagInlineProcessor(EM_STRONG_RE, 'strong,em'),
-            'em_strong',
+            'em_strong2',
             60
         )
 
