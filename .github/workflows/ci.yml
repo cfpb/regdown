@@ -30,4 +30,4 @@ jobs:
 
       - name: Run back-end tests
         run: |
-          tox -e lint,py{36,38}-md32
+          tox -e lint,py36-md32,py38-md32
