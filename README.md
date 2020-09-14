@@ -1,7 +1,6 @@
 # Regdown
 
-[![Build Status](https://travis-ci.org/cfpb/regdown.svg?branch=master)](https://travis-ci.org/cfpb/regdown)
-[![Coverage Status](https://coveralls.io/repos/github/cfpb/regdown/badge.svg?branch=master)](https://coveralls.io/github/cfpb/regdown?branch=master)
+![Build Status](https://github.com/cfpb/regdown/workflows/ci/badge.svg)[![Coverage Status](https://coveralls.io/repos/cfpb/regdown/badge.svg)](https://coveralls.io/r/cfpb/regdown)
 
 Regdown is a [Python-Markdown](https://python-markdown.github.io) extension for interactive regulation text.
 
@@ -119,4 +118,4 @@ General instructions on _how_ to contribute can be found in [CONTRIBUTING](CONTR
 
 ## Credits and references
 
-regdown was forked from [Wagtail-Flags](https://github.com/cfpb/wagtail-flags), which was itself forked from [cfgov-refresh](https://github.com/cfpb/cfgov-refresh).
+regdown was forked from [Wagtail-Flags](https://github.com/cfpb/wagtail-flags), which was itself forked from [consumerfinance.gov](https://github.com/cfpb/consumerfinance.gov).
