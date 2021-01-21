@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
 import re
+from hashlib import sha3_224
 
 from markdown import markdown, util
 from markdown.blockprocessors import BlockProcessor, ParagraphProcessor
 from markdown.extensions import Extension
 from markdown.inlinepatterns import DoubleTagInlineProcessor, Pattern
-
-
-# If we're on Python 3.6+ we have SHA3 built-in, otherwise use the back-ported
-# sha3 library.
-try:
-    from hashlib import sha3_224
-except ImportError:  # pragma: no cover
-    from sha3 import sha3_224
 
 
 # ***strongem*** or ***em*strong**
