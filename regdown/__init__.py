@@ -259,6 +259,7 @@ def regdown(text, **kwargs):
         text,
         extensions=[
             "markdown.extensions.tables",
+            "attr_list",
             RegulationsExtension(**kwargs),
         ],
         **kwargs,
