@@ -195,7 +195,7 @@ class RegulationsExtensionTestCase(unittest.TestCase):
         )
 
     def test_makeExtension(self):
-        """ Test that Markdown can load our extension from a string """
+        """Test that Markdown can load our extension from a string"""
         try:
             markdown.Markdown(extensions=["regdown"])
         except AttributeError as e:  # pragma: no cover
