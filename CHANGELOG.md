@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Include attr_list, allowing regdown users to set html attributes
+
 ## 1.0.3
 
 - Replace Travis with GitHub Actions and Replace Travis Badge with Github Action Badge

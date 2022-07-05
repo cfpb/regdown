@@ -98,7 +98,7 @@ class RegulationsExtension(Extension):
 
 
 class EmDashPattern(Pattern):
-    """ Replace '---' with an &mdash; """
+    """Replace '---' with an &mdash;"""
 
     def handleMatch(self, m):
         return "{}mdash;".format(util.AMP_SUBSTITUTE)
@@ -119,7 +119,7 @@ class PseudoFormPattern(Pattern):
 
 
 class SectionSymbolPattern(Pattern):
-    """ Make whitespace after a section symbol non-breaking """
+    """Make whitespace after a section symbol non-breaking"""
 
     def handleMatch(self, m):
         return "{section}{stx}{char}{etx}#160;".format(
@@ -259,6 +259,7 @@ def regdown(text, **kwargs):
         text,
         extensions=[
             "markdown.extensions.tables",
+            "attr_list",
             RegulationsExtension(**kwargs),
         ],
         **kwargs,
