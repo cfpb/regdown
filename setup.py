@@ -24,7 +24,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="CC0",
-    version="1.0.4",
+    version="1.0.5",
     include_package_data=True,
     packages=find_packages(),
     test_suite="regdown.tests",
