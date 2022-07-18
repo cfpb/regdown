@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 from hashlib import sha3_224
+from xml.etree import ElementTree as ET
 
 from markdown import markdown, util
 from markdown.blockprocessors import BlockProcessor, ParagraphProcessor
@@ -109,11 +110,11 @@ class PseudoFormPattern(Pattern):
     given pseudo-form pattern."""
 
     def handleMatch(self, m):
-        el = util.etree.Element("span")
+        el = ET.Element("span")
         el.set("class", "regdown-form")
         if m.group("line_ending") is not None:
             el.set("class", "regdown-form_extend")
-            util.etree.SubElement(el, "span")
+            ET.SubElement(el, "span")
         el.text = m.group("underscores")
         return el
 
@@ -152,9 +153,9 @@ class LabeledParagraphProcessor(ParagraphProcessor):
             label, text = match.group("label"), match.group("text")
             # Labeled paragraphs without text should use a div element
             if text == "":
-                el = util.etree.SubElement(parent, "div")
+                el = ET.SubElement(parent, "div")
             else:
-                el = util.etree.SubElement(parent, "p")
+                el = ET.SubElement(parent, "p")
             el.set("id", label)
             el.set("data-label", label)
 
@@ -190,7 +191,7 @@ class LabeledParagraphProcessor(ParagraphProcessor):
                 text = block.lstrip()
                 label = sha3_224(text.encode("utf-8")).hexdigest()
                 class_name = "regdown-block"
-                p = util.etree.SubElement(parent, "p")
+                p = ET.SubElement(parent, "p")
                 p.set("id", label)
                 p.set("class", class_name)
                 p.set("data-label", "")
@@ -242,9 +243,7 @@ class BlockReferenceProcessor(BlockProcessor):
 
             rendered_contents = self.render_block_reference(contents, url=url)
 
-            parent.append(
-                util.etree.fromstring(rendered_contents.encode("utf-8"))
-            )
+            parent.append(ET.fromstring(rendered_contents.encode("utf-8")))
 
 
 def makeExtension(*args, **kwargs):
