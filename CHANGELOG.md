@@ -1,3 +1,9 @@
+## 1.0.5
+
+- Replace the use of deprecated markdown.util.etree
+- Changed Python 3.7 to 3.10
+- Pin markdown under 3.5
+
 ## 1.0.4
 
 - Include attr_list, allowing regdown users to set html attributes
