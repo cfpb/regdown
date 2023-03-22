@@ -1,6 +1,35 @@
+[project]
+name = "regdown"
+version = "1.0.5"
+description = "Markdown extension for interactive regulations"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "CC0"}
+authors = [
+    {name = "CFPB", email = "tech@cfpb.gov" }
+]
+dependencies = [
+    "Markdown>=3.4",
+]
+classifiers = [
+    "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+    "License :: Public Domain",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/cfpb/regdown"
+"Bug Reports" = "https://github.com/cfpb/regdown/issues"
+"Source" = "https://github.com/cfpb/regdown"
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [tool.black]
 line-length = 79
-target-version = ['py36', 'py38']
+target-version = ["py38"]
 include = '\.pyi?$'
 exclude = '''
 (
@@ -14,11 +43,33 @@ exclude = '''
     | dist
     | migrations
     | site
-    | \*.json
-    | \*.csv
   )/
 )
 '''
 
-[build-system]
-requires = ["setuptools", "wheel"]
+[tool.isort]
+profile = "black"
+line_length = 79
+lines_after_imports = 2
+skip = [".tox", ".venv", "venv"]
+
+[tool.ruff]
+exclude = [
+    ".git",
+    ".tox",
+    "__pycache__",
+]
+select = [
+    "E",
+    "F",
+    "W",
+]
+ignore = [
+    # Assigned Lambdas are fine.
+    "E731",
+]
+
+[tool.coverage.run]
+omit = [
+    "tests.py",
+]
