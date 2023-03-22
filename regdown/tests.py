@@ -220,7 +220,7 @@ class RegulationsExtensionTestCase(unittest.TestCase):
         self.assertEqual(regdown(text, render_block_reference=None), "")
 
     def test_block_reference_no_contents(self):
-        contents_resolver = lambda l: ""
+        contents_resolver = lambda ref: ""
         text = "see(foo-bar)"
         self.assertEqual(
             regdown(
@@ -232,7 +232,7 @@ class RegulationsExtensionTestCase(unittest.TestCase):
         )
 
     def test_block_reference(self):
-        contents_resolver = lambda l: "{foo-bar}\n# §FooBar\n\n"
+        contents_resolver = lambda ref: "{foo-bar}\n# §FooBar\n\n"
         text = "see(foo-bar)"
         self.assertIn(
             "<h1>§FooBar</h1>",

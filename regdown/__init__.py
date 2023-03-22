@@ -24,15 +24,14 @@ SECTION_SYMBOL_RE = r"(?P<section_symbol>§)\s+"
 EMDASH_RE = r"---"
 
 
-DEFAULT_URL_RESOLVER = lambda l: ""
-DEFAULT_CONTENTS_RESOLVER = lambda l: ""
+DEFAULT_URL_RESOLVER = lambda ref: ""
+DEFAULT_CONTENTS_RESOLVER = lambda ref: ""
 DEFAULT_RENDER_BLOCK_REFERENCE = (
     lambda c, **kwargs: "<blockquote>{}</blockquote>".format(regdown(c))
 )
 
 
 class RegulationsExtension(Extension):
-
     config = {
         "url_resolver": [
             DEFAULT_URL_RESOLVER,
@@ -243,7 +242,12 @@ class BlockReferenceProcessor(BlockProcessor):
 
             rendered_contents = self.render_block_reference(contents, url=url)
 
-            parent.append(ET.fromstring(rendered_contents.encode("utf-8")))
+            # Use Python-Markdown's htmlStash to stash the rendered HTML,
+            # and just add the reference to it.
+            stashed_html = self.parser.md.htmlStash.store(rendered_contents)
+
+            # Assign the reference to the parent's text node
+            parent.text = stashed_html
 
 
 def makeExtension(*args, **kwargs):
