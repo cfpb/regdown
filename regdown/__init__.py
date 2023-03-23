@@ -244,10 +244,10 @@ class BlockReferenceProcessor(BlockProcessor):
 
             # Use Python-Markdown's htmlStash to stash the rendered HTML,
             # and just add the reference to it.
-            stashed_html = self.parser.md.htmlStash.store(rendered_contents)
+            stash_ref = self.parser.md.htmlStash.store(rendered_contents)
 
-            # Assign the reference to the parent's text node
-            parent.text = stashed_html
+            # Replace the see() block with the stash reference
+            blocks.insert(0, stash_ref)
 
 
 def makeExtension(*args, **kwargs):
