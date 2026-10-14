@@ -34,7 +34,10 @@ Then you can either:
     import markdown
     from regdown import RegulationsExtension
 
-    markdown.markdown(text, extensions=[RegulationsExtension()],)
+    markdown.markdown(
+        text,
+        extensions=[RegulationsExtension()],
+    )
     ```
 
 - Use convenience `regdown` function to render Markdown with the `RegulationsExtension`:
@@ -88,18 +91,21 @@ Callbacks:
 ```python
 from regdown import regdown
 
+
 def my_contents_resolver(label):
     # Lookup the document that contains the given label …
     return corresponding_markdown_text
+
 
 def my_block_renderer(block_markdown_contents, url=None):
     # Render the block to HTML
     return block_html
 
+
 regdown(
     text,
     contents_resolver=my_contents_resolver,
-    render_block_reference=my_block_renderer
+    render_block_reference=my_block_renderer,
 )
 ```
 
