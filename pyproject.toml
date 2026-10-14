@@ -9,7 +9,7 @@ authors = [
     {name = "CFPB", email = "tech@cfpb.gov" }
 ]
 dependencies = [
-    "Markdown>=3.4",
+    "Markdown>=3.4,<3.11.1",
 ]
 classifiers = [
     "Programming Language :: Python",
